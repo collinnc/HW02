@@ -13,12 +13,15 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-Circle::Circle(int depth, Vec2f position, float radius){
+Circle::Circle(int priority, Vec2f position, float radius, Color8u color){
 
 	next_ = this;
 
 	position_ = position;
 	radius_ = radius;
+
+	color_ = color;
+
 
 }
 
@@ -40,6 +43,7 @@ void Circle::update(cinder::Vec2f position, float r){
 
 void Circle::draw(Vec2i mouse_pos){
 
+	gl::color(color_);
 	gl::drawSolidCircle( Vec2f(float(mouse_pos.x), float(mouse_pos.y)), radius_);
 
 }
