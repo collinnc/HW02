@@ -42,8 +42,8 @@ void HW02App::setup()
 	CircleList ->sentinel = new Circle;
 	CircleList->sentinel->next_ = CircleList->sentinel;
 	Circle* last;
-	last = CircleList->insertCircle(CircleList->sentinel, Vec2f(400.0, 150.0), 150.0, Color8u(255,0,0));
-	last = CircleList->insertCircle(last, Vec2f(550.0, 300.0), 150.0, Color8u(0,255,0));
+	last = CircleList->insertCircle(CircleList->sentinel, Vec2f(400.0, 150.0), 150.0);
+	last = CircleList->insertCircle(last, Vec2f(550.0, 300.0), 150.0);
 
 	theta = 0.0;
 	circX = 0.0;
@@ -66,16 +66,29 @@ void HW02App::update()
 void HW02App::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 255, 255, 255 ) ); 
+	gl::clear( Color( 0,0,0 ) ); 
 
 	Circle* cur = CircleList->sentinel->next_;
-	if(cur != NULL){
+	while(cur!=CircleList->sentinel){
+		gl::color(cur->color_);
+		gl::drawSolidCircle(cur->position_, cur->radius_);
+		cur = cur->next_;
+
+	}
+
+
+
+
+
+	/*if(cur != NULL){
 		do{
-			gl::color(cur->color_);
+			gl::color(Color8u(rand()*255, rand()*255, rand()*255));
 			gl::drawSolidCircle(cur->position_, cur->radius_);
 			cur = cur->next_;
 		} while (cur->next_ != NULL);
 	}
+	*/
+
 }
 
 CINDER_APP_BASIC( HW02App, RendererGl )

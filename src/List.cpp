@@ -10,15 +10,17 @@ void List::reverse(Circle* sentinel){
 	}
 }
 
-	Circle* List::insertCircle(Circle* prevCir, ci::Vec2f position, float radius, Color8u color){
+	Circle* List::insertCircle(Circle* prevCir, ci::Vec2f position, float radius){
 		Circle* temp = new Circle;
-		temp->position_ = position;
-		temp->radius_ = radius;
-		temp->color_ = color;
 		temp->next_ = prevCir->next_;
 		prevCir->next_=temp;
 
-		return 0;
+		temp->position_ = position;
+		temp->radius_ = radius;
+		temp->color_ = cinder::Color8u(rand()*255, rand()*255, rand()*255);
+		
+		
+		return temp;
 	}
 
 	bool List::isInside(float x, float y, Circle* cur){

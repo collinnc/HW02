@@ -13,7 +13,7 @@ public:
 	float radius_;
 	cinder::Color8u color_;
 	//Circle* insertAfter(Circle* new_item, Circle* insert_here);
-	bool isInside(float x, float y);
+	//bool isInside(float x, float y);
 	//void draw(ci::Vec2i mouse_pos);
 	//void update(ci::Vec2f position, float r);
 
