@@ -18,7 +18,7 @@
     <ClCompile Include="..\src\HW02App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Circle.cpp">
+    <ClCompile Include="..\src\List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -27,6 +27,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

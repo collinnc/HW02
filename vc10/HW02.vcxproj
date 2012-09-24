@@ -104,11 +104,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Circle.cpp" />
     <ClCompile Include="..\src\HW02App.cpp" />
+    <ClCompile Include="..\src\List.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Circle.h" />
+    <ClInclude Include="..\include\List.h" />
     <ClInclude Include="..\include\Resources.h" />
   </ItemGroup>
   <ItemGroup>
