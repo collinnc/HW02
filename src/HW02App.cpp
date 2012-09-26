@@ -9,8 +9,8 @@
 * @date 2012-09-24
 *
 */
-
-
+#include "cinder/Text.h"
+#include "cinder/gl/TextureFont.h"
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "List.h"
@@ -30,6 +30,8 @@ class HW02App : public AppBasic {
 	void update();
 	void draw();
 	void prepareSettings(Settings* settings);
+	gl::TextureFontRef	mTextureFont;
+	Font mFont;
 
   private:
 	  List* CircleList;
@@ -39,6 +41,7 @@ class HW02App : public AppBasic {
 	  float theta;
 	  float circX, circY;
 	  int moveCount;
+	  bool help;
 };
 
 void HW02App::prepareSettings(Settings* settings){
@@ -49,6 +52,15 @@ void HW02App::prepareSettings(Settings* settings){
 
 void HW02App::setup()
 {
+	help = true;
+	#if defined( CINDER_COCOA_TOUCH )
+	mFont = Font( "Cochin-Italic", 24 );
+#elif defined( CINDER_COCOA )
+	mFont = Font( "BigCaslon-Medium", 24 );
+#else
+	mFont = Font( "Times New Roman", 24 );
+#endif
+	mTextureFont = gl::TextureFont::create( mFont );
 	
 	// create the list
 	CircleList = new List;
@@ -75,6 +87,10 @@ void HW02App::setup()
 // If 'n' is pressed, the circles move to the left.
 void HW02App::keyDown(cinder::app::KeyEvent event)
 {
+	if(event.getChar() == '?'){
+		gl::clear( Color( 0, 0, 0 ) ); 
+		help = !(help);
+	}
 	if(event.getChar() == 'm'){
 		if(moveCount <15){
 			Circle* cur = CircleList->sentinel->next_;
@@ -97,9 +113,9 @@ void HW02App::keyDown(cinder::app::KeyEvent event)
 		moveCount = moveCount -1;
 	}
 	
-	else
+	else if (event.getChar() == 'r'){
 	CircleList->reverse(CircleList->sentinel);
-
+	}
 
 }
 
@@ -129,8 +145,16 @@ void HW02App::update()
 
 void HW02App::draw()
 {
+	gl::enableAlphaBlending();
 	// clear out the window with black
 	gl::clear( Color( 0,0,0 ) ); 
+	if (help==true){std::string str( "Press '?' to toggle instructions \n\ r: reverse \n\ m: right \n\ n: left \n\ Click a circle: send it to the back" );
+	Rectf boundsRect( 40, mTextureFont->getAscent() + 40, getWindowWidth() - 40, getWindowHeight() - 40 );
+
+	gl::color( ColorA( 1, 0.5f, 0.25f, .5f ) );
+
+	mTextureFont->drawStringWrapped( str, boundsRect );
+	}
 	
 	// Go through the list, and draw each circle to the screen
 	Circle* cur = CircleList->sentinel->next_;
